@@ -16,19 +16,36 @@ while true; do
 
   case $opcion in
     1)
+      mkdir -p "$HOME/EPNro1/entrada"
+      mkdir -p "$HOME/EPNro1/salida"
+      mkdir -p "$HOME/EPNro1/procesado"
+      
       echo "Entorno creado."
       ;;
     2)
+      "$HOME/EPNro1/consolidar.sh" &
       echo "Proceso en ejecución..."
       ;;
     3)
-      echo "Mostrando alumnos..."
+      if [ -f "$HOME/EPNro1/salida/$FILENAME.txt" ]; then
+        sort -k1,1n "$HOME/EPNro1/salida/$FILENAME.txt"
+      else
+        echo "Archivo no creado aún."
+      fi
       ;;
     4)
-      echo "Top 10 notas..."
+      if [ -f "$HOME/EPNro1/salida/$FILENAME.txt" ]; then
+        sort -k5,5nr "$HOME/EPNro1/salida/$FILENAME.txt" | head -n 10
+      else
+        echo "Archivo no creado aún."
+      fi
       ;;
     5)
-      echo "Buscando padrón..."
+      if [ -f "$HOME/EPNro1/salida/$FILENAME.txt" ]; then
+        read -p "Ingrese el número de padrón: " padron
+        grep "^$padron " "$HOME/EPNro1/salida/$FILENAME.txt"
+      else
+        echo "Archivo no creado aún."
       ;;
     6)
       echo "Saliendo..."
