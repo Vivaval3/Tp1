@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export FILENAME="FILENAME"
+export FILENAME="FILENAME.txt"
 
 while true; do
   echo "Menu:"
@@ -28,23 +28,23 @@ while true; do
       echo "Proceso en ejecución..."
       ;;
     3)
-      if [ -f "$HOME/EPNro1/salida/$FILENAME.txt" ]; then
-        sort -k1,1n "$HOME/EPNro1/salida/$FILENAME.txt"
+      if [ -f "$HOME/EPNro1/salida/$FILENAME" ]; then
+        sort -k1,1n "$HOME/EPNro1/salida/$FILENAME"
       else
         echo "Archivo no creado aún."
       fi
       ;;
     4)
-      if [ -f "$HOME/EPNro1/salida/$FILENAME.txt" ]; then
-        sort -k5,5nr "$HOME/EPNro1/salida/$FILENAME.txt" | head -n 10
+      if [ -f "$HOME/EPNro1/salida/$FILENAME" ]; then
+        sort -k5,5nr "$HOME/EPNro1/salida/$FILENAME" | head -n 10
       else
         echo "Archivo no creado aún."
       fi
       ;;
     5)
-      if [ -f "$HOME/EPNro1/salida/$FILENAME.txt" ]; then
+      if [ -f "$HOME/EPNro1/salida/$FILENAME" ]; then
         read -p "Ingrese el número de padrón: " padron
-        grep "^$padron " "$HOME/EPNro1/salida/$FILENAME.txt"
+        grep "^$padron " "$HOME/EPNro1/salida/$FILENAME"
       else
         echo "Archivo no creado aún."
       ;;
