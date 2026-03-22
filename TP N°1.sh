@@ -47,6 +47,7 @@ while true; do
         grep "^$padron " "$HOME/EPNro1/salida/$FILENAME"
       else
         echo "Archivo no creado aún."
+      fi
       ;;
     6)
       echo "Saliendo..."
