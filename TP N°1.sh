@@ -2,6 +2,15 @@
 
 export FILENAME="FILENAME.txt"
 
+#eliminamos el entorno creado 
+if [ "$1" == "-d" ]; then
+    echo "Eliminando entorno y procesos..."
+    rm -rf "$HOME/EPNro1"
+    pkill -f "consolidar.sh"
+    exit 0
+fi
+
+
 while true; do
   echo "Menu:"
   echo "_______________________"
