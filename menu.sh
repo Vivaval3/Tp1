@@ -71,7 +71,7 @@ EOF
       else
         echo "Archivo no creado aún."
       fi
-      ;;			
+      ;;
 		4)
       if [ -f "$ARCHIVO" ]; then
         sort -k5,5nr "$ARCHIVO" | head -n 10
@@ -96,3 +96,5 @@ EOF
 			;;
 	esac
 done
+
+echo ""
