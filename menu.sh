@@ -3,7 +3,7 @@
 if [ "$1" == "-d" ]; then
     echo "Eliminando entorno y matando procesos..."
 
-	pkill -f "$HOME/EPNro1/consolidar.sh"
+		pkill -f "$HOME/EPNro1/consolidar.sh"
     rm -rf "$HOME/EPNro1"
 
     exit 0
@@ -54,7 +54,7 @@ while true; do
 done
 EOF
 
-      chmod +x "$HOME/EPNro1/consolidar.sh"
+			chmod +x "$HOME/EPNro1/consolidar.sh"
 			echo "Entorno creado."
 			;;
 		2)
