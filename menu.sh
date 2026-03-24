@@ -6,6 +6,7 @@ if [ "$1" == "-d" ]; then
 	pkill -f "$HOME/EPNro1/consolidar.sh"
 	rm -rf "$HOME/EPNro1"
 
+	echo "Limpieza completada."
 	exit 0
 fi
 
@@ -16,23 +17,23 @@ export PROCESADO="$HOME/EPNro1/procesado"
 export ARCHIVO="$HOME/EPNro1/salida/$FILENAME"
 
 while true; do
-	echo "----------------------"
+	echo "========================="
+	echo "   GESTIÓN DE ALUMNOS    "
+	echo "========================="
 	echo "1. Crear entorno"
-	echo "2. Crear proceso"
+	echo "2. Iniciar proceso"
 	echo "3. Listar alumnos"
-	echo "4. Top 10 notas"
+	echo "4. Top 10 calificaciones"
 	echo "5. Buscar por padrón"
 	echo "6. Salir"
-	echo "----------------------"
+	echo "-------------------------"
 
 	read -p "Opción: " opcion
+	echo ""
     
 	case $opcion in
 		1)
-			mkdir -p "$ENTRADA"
-			mkdir -p "$SALIDA"
-			mkdir -p "$PROCESADO"
-
+			mkdir -p "$ENTRADA" "$SALIDA" "$PROCESADO"
 			cat > "$HOME/EPNro1/consolidar.sh" << "EOF"
 #!/bin/bash
 touch "$ARCHIVO"
@@ -59,39 +60,45 @@ EOF
 			;;
 		2)
 			if pgrep -f "$HOME/EPNro1/consolidar.sh" > /dev/null; then
-				echo "Proceso ya ejecutado."
+				echo "El proceso de consolidación ya está en ejecución."
 			else
 				"$HOME/EPNro1/consolidar.sh" &
-				echo "Proceso en ejecución..."
+				echo "Proceso de consolidación iniciado."
 			fi
 			;;
 		3)
 			if [ -f "$ARCHIVO" ]; then
+				echo "Listado de alumnos (ordenados por padrón):"
+				echo "--------------------------------------------------"
 				sort -k1,1n "$ARCHIVO"
 			else
-				echo "Archivo no creado aún."
+				echo "Sin datos disponibles. Cree el entorno y ejecute el proceso."
 			fi
-			;;			
+			;;
 		4)
 			if [ -f "$ARCHIVO" ]; then
-				echo "Los Mejores 10 Alumnos segun nota son:"
+				echo "Top 10 calificaciones:"
+				echo "--------------------------------------------------"
 				sort -k5,5nr "$ARCHIVO" | head -n 10
 			else
-				echo "Archivo no creado aún."
+				echo "Sin datos disponibles. Cree el entorno y ejecute el proceso."
 			fi
 			;;
 		5)
 			if [ -f "$ARCHIVO" ]; then
 				read -p "Ingrese el número de padrón: " padron
-				resultado=$(grep "^$padron " "$ARCHIVO")
 
-    			if [ -n "$resultado" ]; then
-        			echo "$resultado"
-    			else
-        			echo "No se encontró el padrón ingresado."
+				if ! [[ "$padron" =~ ^[0-9]+$ ]]; then
+    				echo "Ingrese un padrón válido."
+    			continue
+				fi
+			
+    			if ! grep "^$padron " "$ARCHIVO"; then
+    				echo "No se encontró ningún alumno con el padrón ingresado."
     			fi
+				
 			else
-				echo "Archivo no creado aún."
+				echo "Sin datos disponibles. Cree el entorno y ejecute el proceso."
 			fi
 			;;
 		6)
@@ -99,9 +106,9 @@ EOF
 			break
 			;;
 		*)
-			echo "Opción fuera del rango."
+			echo "Opción fuera de rango. Ingrese una opción válida."
 			;;
 	esac
-done
 
-echo ""
+	echo ""
+done
