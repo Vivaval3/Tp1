@@ -90,7 +90,7 @@ EOF
 
 				if ! [[ "$padron" =~ ^[0-9]+$ ]]; then
     				echo "Ingrese un padrón válido."
-    			continue
+    				continue
 				fi
 			
     			if ! grep "^$padron " "$ARCHIVO"; then
