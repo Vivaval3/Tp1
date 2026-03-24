@@ -1,4 +1,3 @@
-
 # Sistema de Gestión de Alumnos - EPNro1 
 
 Este proyecto consiste en un sistema de automatización en **Bash Shell** diseñado para procesar archivos de alumnos en segundo plano. El sistema monitorea una carpeta de entrada, consolida los datos en un archivo central y permite realizar consultas ordenadas.
@@ -34,11 +33,11 @@ Al ejecutar la opción de "Crear Entorno", el sistema genera la siguiente estruc
     `./menu.sh -d`
 
 ## Formato de los Datos
-El sistema espera archivos .txt con columnas separadas por espacios:
-*`Padrón Nombre Apellido Email Nota`
+El sistema espera archivos .txt con columnas separadas por espacios:  
+`Padrón Nombre Apellido Email Nota`.
 
-Ejemplo:
-`122332 Juan Lopez jlopez@fi.uba.ar 8`
+Ejemplo:  
+`122332 Juan Lopez jlopez@fi.uba.ar 8`.
 
 ## Detalles Técnicos
 **Prevención de Colisiones:** El script utiliza `pgrep` para asegurar que solo exista una instancia del proceso de consolidación corriendo a la vez.
