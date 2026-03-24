@@ -45,7 +45,7 @@ while true; do
       ;;
     4)
       if [ -f "$HOME/EPNro1/salida/$FILENAME" ]; then
-        sort -k5,5nr "$HOME/EPNro1/salida/$FILENAME" | head -n 10
+        sort -k4,4nr "$HOME/EPNro1/salida/$FILENAME" | head -n 10
       else
         echo "Archivo no creado aún."
       fi
