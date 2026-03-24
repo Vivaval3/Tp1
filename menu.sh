@@ -38,57 +38,57 @@ while true; do
 touch "$ARCHIVO"
 
 while true; do
-  flag=false
+	flag=false
 
-  for archivo in "$ENTRADA"/*; do
-    [ -f "$archivo" ] || continue
+	for archivo in "$ENTRADA"/*; do
+		[ -f "$archivo" ] || continue
 
-    cat "$archivo" >> "$ARCHIVO"
-    mv "$archivo" "$PROCESADO/"
-    flag=true
-  done
+		cat "$archivo" >> "$ARCHIVO"
+		mv "$archivo" "$PROCESADO/"
+		flag=true
+	done
 
-  $flag && sort -u "$ARCHIVO" -o "$ARCHIVO"
+	$flag && sort -u "$ARCHIVO" -o "$ARCHIVO"
 
-  sleep 10
+	sleep 10
 done
 EOF
-      
+
 			chmod +x "$HOME/EPNro1/consolidar.sh"
 			echo "Entorno creado."
 			;;
 		2)
-      if pgrep -f "$HOME/EPNro1/consolidar.sh" > /dev/null; then
-        echo "Proceso ya ejecutado."
-      else
-        "$HOME/EPNro1/consolidar.sh" &
-        echo "Proceso en ejecución..."
-      fi
-      ;;
-		3)
-      if [ -f "$ARCHIVO" ]; then
-        sort -k1,1n "$ARCHIVO"
-      else
-        echo "Archivo no creado aún."
-      fi
-      ;;
-		4)
-      if [ -f "$ARCHIVO" ]; then
-        sort -k5,5nr "$ARCHIVO" | head -n 10
-      else
-        echo "Archivo no creado aún."
-      fi
-      ;;
-    5)
-      if [ -f "$ARCHIVO" ]; then
-        read -p "Ingrese el número de padrón: " padron
-        grep "^$padron " "$ARCHIVO"
-      else
-        echo "Archivo no creado aún."
+			if pgrep -f "$HOME/EPNro1/consolidar.sh" > /dev/null; then
+				echo "Proceso ya ejecutado."
+			else
+				"$HOME/EPNro1/consolidar.sh" &
+				echo "Proceso en ejecución..."
 			fi
-      ;;
-    6)
-      echo "Saliendo..."
+			;;
+		3)
+			if [ -f "$ARCHIVO" ]; then
+				sort -k1,1n "$ARCHIVO"
+			else
+				echo "Archivo no creado aún."
+			fi
+			;;			
+		4)
+			if [ -f "$ARCHIVO" ]; then
+				sort -k5,5nr "$ARCHIVO" | head -n 10
+			else
+				echo "Archivo no creado aún."
+			fi
+			;;
+		5)
+			if [ -f "$ARCHIVO" ]; then
+				read -p "Ingrese el número de padrón: " padron
+				grep "^$padron " "$ARCHIVO"
+			else
+				echo "Archivo no creado aún."
+			fi
+			;;
+		6)
+			echo "Saliendo..."
 			break
 			;;
 		*)
