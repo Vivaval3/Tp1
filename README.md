@@ -24,12 +24,12 @@ Al ejecutar la opción de "Crear Entorno", el sistema genera la siguiente estruc
    ```bash
    git clone (https://github.com/Vivaval3/Tp1.git)
    cd Tp1
-2. **Dar permisos de ejecución:**
-   `chmod +x consolidar.sh`
-3. **Iniciar el programa:**
+2. **Iniciar el programa:**
+
     `./menu.sh`
-4. **Limpieza del Entorno:**
+3. **Limpieza del Entorno:**
     Si deseas borrar todas las carpetas y detener los procesos, ejecuta:
+    
     `./menu.sh -d`
 
 ## Formato de los Datos
