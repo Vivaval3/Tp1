@@ -1,12 +1,12 @@
 #!/bin/bash
 
 if [ "$1" == "-d" ]; then
-    echo "Eliminando entorno y matando procesos..."
+	echo "Eliminando entorno y matando procesos..."
 
-		pkill -f "$HOME/EPNro1/consolidar.sh"
-    rm -rf "$HOME/EPNro1"
+	pkill -f "$HOME/EPNro1/consolidar.sh"
+	rm -rf "$HOME/EPNro1"
 
-    exit 0
+	exit 0
 fi
 
 export FILENAME="FILENAME.txt"
@@ -16,18 +16,18 @@ export PROCESADO="$HOME/EPNro1/procesado"
 export ARCHIVO="$HOME/EPNro1/salida/$FILENAME"
 
 while true; do
-  echo "----------------------"
-  echo "1. Crear entorno"
-  echo "2. Crear proceso"
-  echo "3. Listar alumnos"
-  echo "4. Top 10 notas"
-  echo "5. Buscar por padrón"
-  echo "6. Salir"
-  echo "----------------------"
+	echo "----------------------"
+	echo "1. Crear entorno"
+	echo "2. Crear proceso"
+	echo "3. Listar alumnos"
+	echo "4. Top 10 notas"
+	echo "5. Buscar por padrón"
+	echo "6. Salir"
+	echo "----------------------"
 
-  read -p "Opción: " opcion
+	read -p "Opción: " opcion
     
-  case $opcion in
+	case $opcion in
 		1)
 			mkdir -p "$ENTRADA"
 			mkdir -p "$SALIDA"
@@ -53,7 +53,7 @@ while true; do
   sleep 10
 done
 EOF
-
+      
 			chmod +x "$HOME/EPNro1/consolidar.sh"
 			echo "Entorno creado."
 			;;
@@ -96,5 +96,3 @@ EOF
 			;;
 	esac
 done
-
-echo ""
