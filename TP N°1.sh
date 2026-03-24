@@ -1,13 +1,16 @@
 #!/bin/bash
 
-export FILENAME="FILENAME.txt"
+export FILENAME="FILENAME"
+ENTORNO="$HOME/EPNro1"
+SALIDA="$ENTORNO/salida/$FILENAME.txt"
 
-#eliminamos el entorno creado 
+#eliminamos el entorno creado y detenemos la ejecución en el background 
 if [ "$1" == "-d" ]; then
-    echo "Eliminando entorno y procesos..."
-    rm -rf "$HOME/EPNro1"
-    pkill -f "consolidar.sh"
-    exit 0
+  echo "Eliminando entorno y procesos..."
+  rm -rf "$ENTORNO"
+  pkill -f "consolidar.sh"
+  echo "Entorno eliminado."
+  exit 0
 fi
 
 
@@ -26,41 +29,49 @@ while true; do
 
   case $opcion in
     1)
-      mkdir -p "$HOME/EPNro1/entrada"
-      mkdir -p "$HOME/EPNro1/salida"
-      mkdir -p "$HOME/EPNro1/procesado"
-      
-      echo "Entorno creado."
+      mkdir -p "$ENTORNO/entrada" "$ENTORNO/salida" "$ENTORNO/procesado"
+      cp ./consolidar.sh  $ENTORNO/consolidar.sh
+      chmod +x "$ENTORNO/consolidar.sh"
+      echo -e "\nEntorno creado\n"
       ;;
     2)
-      "$HOME/EPNro1/consolidar.sh" &
+      "$ENTORNO/consolidar.sh" &
+	echo ""
       echo "Proceso en ejecución..."
       ;;
     3)
-      if [ -f "$HOME/EPNro1/salida/$FILENAME" ]; then
-        sort -k1,1n "$HOME/EPNro1/salida/$FILENAME"
+      if [ -f "$SALIDA" ]; then
+        echo -e "\n--- LISTADO POR PADRÓN ---"
+        sort -k1,1n "$SALIDA"
       else
         echo "Archivo no creado aún."
       fi
       ;;
     4)
-      if [ -f "$HOME/EPNro1/salida/$FILENAME" ]; then
-        sort -k5,5nr "$HOME/EPNro1/salida/$FILENAME" | head -n 10
+      if [ -f "$SALIDA" ]; then
+        echo -e "\n--- TOP 10 NOTAS ---"
+        sort -k5,5nr "$SALIDA" | head -n 10
       else
-        echo "Archivo no creado aún."
+        echo -e "\nArchivo no creado aún."
       fi
       ;;
     5)
-      if [ -f "$HOME/EPNro1/salida/$FILENAME" ]; then
+      if [ -f "$SALIDA" ]; then
+	echo ""
         read -p "Ingrese el número de padrón: " padron
-        grep "^$padron " "$HOME/EPNro1/salida/$FILENAME"
+	echo -e "\nResultado de su busqueda:"
+        grep -w "^$padron" "$SALIDA" || echo "Padrón no encontrado."
       else
-        echo "Archivo no creado aún."
+        echo -e "\nArchivo no creado aún."
       fi
       ;;
     6)
-      echo "Saliendo..."
-      break
+      echo -e "\nSaliendo..."
+      exit 0
+      ;;
+    *)
+      echo ""
+      echo "Opción inválida. Por favor seleccione una opción válida"
       ;;
   esac
 
