@@ -74,6 +74,7 @@ EOF
 			;;			
 		4)
 			if [ -f "$ARCHIVO" ]; then
+				echo "Los Mejores 10 Alumnos segun nota son:"
 				sort -k5,5nr "$ARCHIVO" | head -n 10
 			else
 				echo "Archivo no creado aún."
@@ -82,7 +83,13 @@ EOF
 		5)
 			if [ -f "$ARCHIVO" ]; then
 				read -p "Ingrese el número de padrón: " padron
-				grep "^$padron " "$ARCHIVO"
+				resultado=$(grep "^$padron " "$ARCHIVO")
+
+    			if [ -n "$resultado" ]; then
+        			echo "$resultado"
+    			else
+        			echo "No se encontró el padrón ingresado."
+    			fi
 			else
 				echo "Archivo no creado aún."
 			fi
