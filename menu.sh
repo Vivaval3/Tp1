@@ -41,7 +41,7 @@ touch "$ARCHIVO"
 while true; do
 	flag=false
 
-	for archivo in "$ENTRADA"/*; do
+	for archivo in "$ENTRADA"/*.txt; do
 		[ -f "$archivo" ] || continue
 
 		cat "$archivo" >> "$ARCHIVO"
@@ -88,7 +88,7 @@ EOF
 			if [ -f "$ARCHIVO" ]; then
 				read -p "Ingrese el número de padrón: " padron
 
-				if ! [[ "$padron" =~ ^[0-9]+$ ]]; then
+				if ! [[ "$padron" =~ ^[0-9]{6}$ ]]; then
     				echo "Ingrese un padrón válido."
     				continue
 				fi
